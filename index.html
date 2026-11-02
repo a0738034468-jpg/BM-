@@ -12,7 +12,24 @@
 <form id="form"><label for="height">身高（公分）</label><input id="height" type="number" min="1" max="300" step="0.1" placeholder="例如：170" required><label for="weight">體重（公斤）</label><input id="weight" type="number" min="1" max="500" step="0.1" placeholder="例如：65" required><button type="submit">計算 BMI</button><p id="error" role="alert"></p></form>
 <section id="result" class="result" aria-live="polite" hidden><div>你的 BMI 是</div><div class="number" id="bmi"></div><div class="status" id="status"></div><p class="hint" id="advice"></p></section>
 <p class="note">分類採用臺灣成人常用標準：過輕 &lt;18.5、正常 18.5～&lt;24、過重 24～&lt;27、肥胖 ≥27。BMI 僅為初步參考，不適用於所有族群，不能取代醫療專業評估。</p></main>
-<script>
+
+<div class="top-left-text">
+  黃逸森
+</div>
+
+<style>
+.top-left-text {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2563eb;
+  z-index: 999;
+}
+</style>
+
+  <script>
 document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();const h=Number(document.getElementById('height').value),w=Number(document.getElementById('weight').value),error=document.getElementById('error'),result=document.getElementById('result');error.textContent='';result.hidden=true;if(!Number.isFinite(h)||!Number.isFinite(w)||h<=0||w<=0||h>300||w>500){error.textContent='請輸入有效的身高與體重。';return;}const bmi=w/Math.pow(h/100,2);let status,advice;if(bmi<18.5){status='體重過輕';advice='建議注意均衡營養，必要時諮詢專業人員。';}else if(bmi<24){status='正常範圍';advice='維持規律運動與均衡飲食。';}else if(bmi<27){status='體重過重';advice='可留意日常活動量及飲食習慣。';}else{status='肥胖範圍';advice='可考慮諮詢醫療或營養專業人員。';}document.getElementById('bmi').textContent=bmi.toFixed(1);document.getElementById('status').textContent=status;document.getElementById('advice').textContent=advice;result.hidden=false;});
 </script>
 </body></html>
